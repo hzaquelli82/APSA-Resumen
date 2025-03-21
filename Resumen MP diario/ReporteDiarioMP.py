@@ -69,4 +69,4 @@ if not os.path.exists(ruta_carpeta):
     os.mkdir(ruta_carpeta)
     
 # Exportamos el DataFrame a un archivo de Excel
-df_result.to_excel(f"ReporteDiario/{fecha_actual}.xlsx", index=False)
+df_result.to_csv(f"ReporteDiario/{fecha_actual}.csv", index=False)
