@@ -56,8 +56,9 @@ df_result = pd.merge(df, df_cod, on='Producto')
 
 # Dar formato al DataFrame final
 df_result.dropna(inplace=True)
-df_result.drop(['Codigo','Producto'], axis=1, inplace=True)
+# df_result.drop(['Codigo','Producto'], axis=1, inplace=True)
 df_result = df_result[['Cod','Dosificado']]
+df_result['Dosificado'] = df_result['Dosificado'] * (-1)
 
 # Crear carpeta si no existe
 # Especificamos la ruta de la carpeta que deseamos crear
