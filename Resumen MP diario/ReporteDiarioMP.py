@@ -11,11 +11,12 @@ cur = db.cursor()
 
 
 fecha_actual = datetime.now()
+# fecha_actual = "2025-04-03"
 fecha_actual = fecha_actual.strftime("%Y-%m-%d")
 
 fecha_ayer = datetime.now()
+# fecha_ayer = "2025-04-02"
 fecha_ayer = fecha_ayer.strftime('%Y-%m-%d')
-
 
 cur.execute("""
     SELECT 
@@ -29,11 +30,11 @@ cur.execute("""
     JOIN 
         dbp8100.productox AS productox ON productox.NroID = dcaptura.IDP 
     WHERE 
-        tareaseje.Fecha >= %s AND 
-        tareaseje.Fecha <= %s 
+        (tareaseje.Fecha = %s AND tareaseje.Hora >= '23:00:00') OR 
+        (tareaseje.Fecha > %s AND tareaseje.Fecha <= %s AND tareaseje.Hora < '23:00:00')
     GROUP BY 
         productox.Nombre
-""", (fecha_ayer, fecha_actual))
+""", (fecha_ayer, fecha_ayer, fecha_actual))
 
 # Obtener los resultados
 resultados = cur.fetchall()
