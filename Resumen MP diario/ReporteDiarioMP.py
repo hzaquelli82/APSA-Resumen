@@ -50,7 +50,8 @@ cur.close()
 db.close()
 
 # Cargar códigos de productos
-df_cod = pd.read_excel('codigos.xlsx')
+# df_cod = pd.read_excel('codigos.xlsx')
+df_cod = pd.read_excel('/samba/public/Resumen_MP_Diario/codigos.xlsx')
 
 # Unir los DataFrames
 df_result = pd.merge(df, df_cod, on='Producto')
@@ -63,7 +64,8 @@ df_result['Dosificado'] = df_result['Dosificado'] * (-1)
 
 # Crear carpeta si no existe
 # Especificamos la ruta de la carpeta que deseamos crear
-ruta_carpeta = 'ReporteDiario'
+# ruta_carpeta = 'ReporteDiario'
+ruta_carpeta = '/samba/public/Resumen_MP_Diario'
 
 # Verificamos si la carpeta ya existe
 if not os.path.exists(ruta_carpeta):
@@ -71,4 +73,5 @@ if not os.path.exists(ruta_carpeta):
     os.mkdir(ruta_carpeta)
     
 # Exportamos el DataFrame a un archivo de Excel
-df_result.to_csv(f"ReporteDiario/{fecha_actual}.csv", index=False, header=False, sep=';')
+# df_result.to_csv(f"ReporteDiario/{fecha_actual}.csv", index=False, header=False, sep=';')
+df_result.to_csv(f"/samba/public/Resumen_MP_Diario/{fecha_actual}.csv", index=False, header=False, sep=';')
