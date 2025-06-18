@@ -14,10 +14,14 @@ fecha_actual = datetime.now()
 # fecha_actual = "2025-04-03"
 fecha_actual = fecha_actual.strftime("%Y-%m-%d")
 
-fecha_ayer = datetime.now()
+fecha_ayer = datetime.now() - timedelta(days=1)
 # fecha_ayer = "2025-04-02"
 fecha_ayer = fecha_ayer.strftime('%Y-%m-%d')
 
+# print(f"Fecha actual: {fecha_actual}")
+# print(f"Fecha de ayer: {fecha_ayer}")
+
+# Ejecutar la consulta
 cur.execute("""
     SELECT 
         productox.Codigo AS Codigo, 
@@ -51,8 +55,9 @@ db.close()
 
 # Cargar códigos de productos
 # df_cod = pd.read_excel('codigos.xlsx')
+# ruta_codigos = r"\\192.168.0.12\samba-share\public\Resumen_MP_Diario\codigos.xlsx"
+# df_cod = pd.read_excel(ruta_codigos)
 df_cod = pd.read_excel('/samba/public/Resumen_MP_Diario/codigos.xlsx')
-
 # Unir los DataFrames
 df_result = pd.merge(df, df_cod, on='Producto')
 
@@ -62,9 +67,9 @@ df_result.dropna(inplace=True)
 df_result = df_result[['Cod','Dosificado']]
 df_result['Dosificado'] = df_result['Dosificado'] * (-1)
 
-# Crear carpeta si no existe
-# Especificamos la ruta de la carpeta que deseamos crear
+# Especificamos la ruta de la carpeta que deseamos usar
 # ruta_carpeta = 'ReporteDiario'
+# ruta_carpeta = f'C:\Users\Hugo\Documents\APSA-ResumenMP\Resumen MP diario\ReporteDiario'
 ruta_carpeta = '/samba/public/Resumen_MP_Diario'
 
 # Verificamos si la carpeta ya existe
@@ -74,4 +79,5 @@ if not os.path.exists(ruta_carpeta):
     
 # Exportamos el DataFrame a un archivo de Excel
 # df_result.to_csv(f"ReporteDiario/{fecha_actual}.csv", index=False, header=False, sep=';')
-df_result.to_csv(f"/samba/public/Resumen_MP_Diario/{fecha_actual}.csv", index=False, header=False, sep=';')
+# df_result.to_csv(f"C:\Users\Hugo\Documents\APSA-ResumenMP\Resumen MP diario\ReporteDiario\{fecha_actual}.csv", index=False, header=False, sep=';')
+df_result.to_csv(f"{ruta_carpeta}/{fecha_actual}.csv", index=False, header=False, sep=';')
