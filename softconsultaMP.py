@@ -65,8 +65,8 @@ def seleccionar_fechas():
             return
 
         # Guardar archivo
-        nombre_archivo = os.path.join(ruta_salida, f"Reporte_{fecha_fin}.xlsx")
-        df_result.to_excel(nombre_archivo, index=False)
+        nombre_archivo = os.path.join(ruta_salida, f"{fecha_actual}.csv")
+        df_result.to_csv(nombre_archivo, index=False, header=False, sep=';')
         print(f"Archivo guardado en: {nombre_archivo}")
 
         # Cerrar ventana
